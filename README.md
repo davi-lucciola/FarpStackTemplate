@@ -29,7 +29,7 @@ FastAPI + ReactJS + PostgreSQL (Farp Stack), template with authentication and au
 
 ## Português Brasil
 
-Template utilizando FastAPI + ReactJS + MongoDB (Farm Stack), com autenticação e autorização utilizando Controle de Acesso Baseado em Papéis (RBAC) e autenticação do Google incluída.
+FastAPI + ReactJS + PostgreSQL (Farp Stack), com autenticação e autorização utilizando Controle de Acesso Baseado em Papéis (RBAC) e autenticação do Google incluída.
 
 ## Como Funciona
 
