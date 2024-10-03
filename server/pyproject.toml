@@ -1,0 +1,67 @@
+[project]
+name = "server"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.11"
+dependencies = [
+    "alembic>=1.13.3",
+    "asyncpg>=0.29.0",
+    "bcrypt>=4.2.0",
+    "email-validator>=2.2.0",
+    "fastapi>=0.115.0",
+    "httpx>=0.27.2",
+    "jinja2>=3.1.4",
+    "passlib>=1.7.4",
+    "pydantic-settings>=2.5.2",
+    "python-decouple>=3.8",
+    "python-jose[cryptography]>=3.3.0",
+    "sqlalchemy>=2.0.35",
+    "uvicorn>=0.31.0",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.3.3",
+    "ruff>=0.6.8",
+]
+
+[tool.ruff]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+    ".venv",
+    "migrations"
+]
+
+line-length = 88
+indent-width = 4
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
