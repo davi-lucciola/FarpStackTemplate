@@ -1,4 +1,4 @@
-import httpx
+from httpx import Client
 from dataclasses import dataclass
 from fastapi import HTTPException, status
 from api.config import settings
@@ -13,6 +13,7 @@ from api.user.user_service import UserService
 @dataclass
 class GoogleLoginStrategy(LoginStrategy):
     user_service: UserService
+    httpx_client: Client = Client()
 
     async def login(self, credentials: LoginDTO) -> str:
         user_info = self.__get_google_user_info(credentials.password)
@@ -49,7 +50,7 @@ class GoogleLoginStrategy(LoginStrategy):
             'grant_type': 'authorization_code',
         }
 
-        response = httpx.post(token_url, data=data)
+        response = self.httpx_client.post(token_url, data=data)
 
         if response.is_error:
             raise HTTPException(
@@ -59,7 +60,7 @@ class GoogleLoginStrategy(LoginStrategy):
 
         access_token = response.json().get('access_token')
 
-        response = httpx.get(
+        response = self.httpx_client.get(
             'https://www.googleapis.com/oauth2/v1/userinfo',
             headers={'Authorization': f'Bearer {access_token}'},
         )

@@ -12,10 +12,10 @@ class UserService:
     user_repository: UserRepository = Depends(UserRepository)
 
     async def find_all(self) -> list[User]:
-        return await self.user_repository.find_all()
+        return self.user_repository.find_all()
 
     async def find_by_id(self, user_id: str) -> User:
-        user = await self.user_repository.find_by_id(user_id)
+        user = self.user_repository.find_by_id(user_id)
 
         if user is None:
             raise HTTPException(
@@ -25,12 +25,12 @@ class UserService:
         return user
 
     async def find_by_email(self, email: str) -> User | None:
-        return await self.user_repository.find_by_email(email)
+        return self.user_repository.find_by_email(email)
 
     async def create(
         self, user_dto: CreateUserDTO, create_strategy: CreateUserStrategies
     ) -> User:
-        exist_user = await self.user_repository.find_by_email(user_dto.email)
+        exist_user = self.user_repository.find_by_email(user_dto.email)
 
         if exist_user is not None:
             raise HTTPException(
@@ -65,18 +65,13 @@ class UserService:
         )
 
         if update_email_google_user:
-            if user_dto.password is None:
-                raise HTTPException(
-                    detail='Você precisa inserir uma senha ao editar o email de um usuário google. A autenticação pelo google também não estará mais possivel.',
-                    status_code=status.HTTP_400_BAD_REQUEST,
-                )
+            raise HTTPException(
+                detail='Você não pode alterar um email de um usuário Google.',
+                status_code=status.HTTP_400_BAD_REQUEST,
+            )
 
-            user_to_update.fl_google_user = False
-
-        email_already_register = (
-            await self.user_repository.find_by_email(user_dto.email, user_to_update.id)
-            is not None
-        )
+        email_already_register = (self.user_repository
+            .find_by_email(user_dto.email, user_to_update.id) is not None)
 
         if email_already_register:
             raise HTTPException(
@@ -85,10 +80,8 @@ class UserService:
             )
 
         user_to_update.update(user_dto)
-        user_to_update = await self.user_repository.save(user_to_update)
-
-        return user_to_update
+        return self.user_repository.save(user_to_update)
 
     async def delete(self, user_id: str):
         user = await self.find_by_id(user_id)
-        await self.user_repository.delete(user)
+        self.user_repository.delete(user)

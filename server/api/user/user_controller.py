@@ -1,5 +1,5 @@
 from typing import List
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from api.utils import BasicResponse
 from api.user.user_service import UserService
 from api.user.dto import UserDTO, CreateUserDTO, UpdateUserDTO
@@ -12,7 +12,7 @@ from api.auth.guard import AuthGuard, OwnerGuard
 user_router = APIRouter(prefix='/users', tags=['User'])
 
 
-@user_router.post('/signup')
+@user_router.post('/sign-up', status_code=status.HTTP_201_CREATED)
 async def signup(
     user_dto: CreateUserDTO, user_service: UserService = Depends(UserService)
 ):

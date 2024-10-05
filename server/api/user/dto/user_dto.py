@@ -1,5 +1,5 @@
 from typing import Optional, List
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from api.roles import Roles
 
 
@@ -11,5 +11,5 @@ class UserDTO(BaseModel):
     profile_picture_uri: Optional[str]
     fl_google_user: bool
 
-    class Config:
-        from_attributes = True
+    # Config
+    model_config = ConfigDict(from_attributes=True)

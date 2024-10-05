@@ -21,5 +21,5 @@ class GoogleCreateUserStrategy(CreateUserStrategy):
         user.fl_google_user = True
         user.roles = [Roles.USER]
 
-        user = await self.user_repository.save(user)
+        user = self.user_repository.save(user)
         return user

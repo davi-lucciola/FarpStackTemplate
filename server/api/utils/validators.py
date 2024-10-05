@@ -16,7 +16,7 @@ def password_validator(password: str):
 
     password_min_length = 4
     if len(password) < password_min_length:
-        ValueError(
+        raise ValueError(
             f'Sua senha deve conter pelo menos {password_min_length} caracteres.'
         )
 

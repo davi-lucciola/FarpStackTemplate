@@ -1,17 +1,17 @@
 from typing import Any, List
 from typing import Optional
 from api.utils import crypt
-from api.models import IBaseModel
 from api.roles import Roles
 from api.user.dto import UpdateUserDTO
-from sqlalchemy import JSON, BigInteger
+from api.models import IBaseModel, Long
+from sqlalchemy import JSON
 from sqlalchemy.orm import Mapped, mapped_column
 
 
 class User(IBaseModel):
     __tablename__ = 'users'
 
-    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(Long, primary_key=True, autoincrement=True)
     name: Mapped[str]
     email: Mapped[str] = mapped_column(unique=True, index=True)
     password: Mapped[Optional[str]]
